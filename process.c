@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 13:19:33 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:51:23 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,33 @@ void	put_forks(t_data *data)
 		i++;
 	}
 	data->philo.forks[i] = 0;
+}
+
+void	create_philos(t_data *data)
+{
+	int		i;
+	
+	i = 1;
+	data->philo.philos = malloc(sizeof(pthread_t) * (data->nmbr_philos));
+	while (i <= data->nmbr_philos)
+	{
+		data->nmbr_thread = i;
+		if (pthread_create(&data->philo.philos[i], NULL, &routine, data) != 0)
+			return ;
+		usleep(1000);
+		i++;
+	}
+}
+
+void	join_philos(t_data *data)
+{
+		int	i;
+	
+	i = 0;
+	while (i < data->nmbr_philos)
+	{
+		if (pthread_join(data->philo.philos[i], NULL) != 0)
+			return ;
+		i++;
+	}
 }

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 10:52:50 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 16:05:46 by anfreire         ###   ########.fr       */
+/*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
+/*   Updated: 2022/07/01 17:49:48 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-
-int	main(int argc, char **argv)
+void*	routine(void *args)
 {
-	t_data	data;
+	t_data	*data;
+	
+	data = (t_data *)args;
+	int i = data->nmbr_thread;
+	printf("%d	", i);
 
-	if (check_args(argc, argv))
-		return (0);
-	atributte_args(argc, argv, &data);
-	create_philos(&data);
-	join_philos(&data);
-	return (0);
+	
+	
 }

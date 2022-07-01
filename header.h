@@ -6,18 +6,20 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 13:21:22 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 17:49:13 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 #define HEADER_H
 
+#define _GNU_SOURCE 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <time.h>
+#include <string.h>
 
 typedef	struct s_philo
 {
@@ -29,6 +31,7 @@ typedef	struct s_philo
 typedef struct s_data
 {
 	int			nmbr_philos;
+	int			nmbr_thread;
 	time_t		t_eat;
 	time_t		t_die;
 	time_t		t_sleep;
@@ -36,9 +39,8 @@ typedef struct s_data
 	t_philo		philo;
 }				t_data;
 
-//actions
-void	philo_eat_v1(t_data *data, int philo_nmbr);
-void	philo_eat_v2(t_data *data, int philo_nmbr);
+//routine
+void	*routine(void *args);
 
 //errors
 int	check_if_digit(char *str);
@@ -48,9 +50,12 @@ int	check_args(int argc, char **argv);
 //process
 void	atributte_args(int argc, char **argv, t_data *data);
 void	put_forks(t_data *data);
+void	create_philos(t_data *data);
+void	join_philos(t_data *data);
 
 //utils
-int	ft_isdigit(char *str);
-int	ft_atoi(char *str);
+int		ft_isdigit(char *str);
+int		ft_atoi(char *str);
+char	*ft_itoa(int n);
 
 #endif
