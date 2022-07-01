@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 13:14:36 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:21:22 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 #include <pthread.h>
 #include <time.h>
 
+typedef	struct s_philo
+{
+	pthread_t	*philos;
+	int			*forks;
+}				t_philo;
+
+
 typedef struct s_data
 {
 	int			nmbr_philos;
@@ -26,13 +33,12 @@ typedef struct s_data
 	time_t		t_die;
 	time_t		t_sleep;
 	int			nmbr_philo_eat;
-	pthread_t	*philos;
-	int			*forks;
+	t_philo		philo;
 }				t_data;
 
 //actions
-void	philo_eat_v1(t_data *philo, int philo_nmbr);
-void	philo_eat_v2(t_data *philo, int philo_nmbr);
+void	philo_eat_v1(t_data *data, int philo_nmbr);
+void	philo_eat_v2(t_data *data, int philo_nmbr);
 
 //errors
 int	check_if_digit(char *str);
@@ -40,8 +46,8 @@ int	check_args(int argc, char **argv);
 
 
 //process
-void	atributte_args(int argc, char **argv, t_data *philo);
-void	put_forks(t_data *philo);
+void	atributte_args(int argc, char **argv, t_data *data);
+void	put_forks(t_data *data);
 
 //utils
 int	ft_isdigit(char *str);
