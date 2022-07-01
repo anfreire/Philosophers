@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 12:33:18 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:14:47 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,7 @@ void	atributte_args(int argc, char **argv, t_data *philo)
 		philo->nmbr_philo_eat = ft_atoi(argv[5]);
 	else
 		philo->nmbr_philo_eat = 0;
-	sit_philos(philo);
 	put_forks(philo);
-}
-
-void	sit_philos(t_data *philo)
-{
-	int	i;
-	
-	i = 0;
-	philo->table = malloc(sizeof(int) * (philo->nmbr_philos + 1));
-	while (i < philo->nmbr_philos)
-	{
-		philo->table[i] = i + 1;
-		i++;
-	}
-	philo->table[i] = 0;
 }
 
 void	put_forks(t_data *philo)

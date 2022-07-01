@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 12:54:43 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:14:12 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	philo_eat_v1(t_data *philo, int philo_nmbr)
 	
 	i1 = philo_nmbr - 1;
 	i2 = philo_nmbr;
-	if (philo->table[i2] == 0)
+	if (philo->forks[i2] == 0)
 	{
 		philo->forks[i1] = 0;
 		philo->forks[0] = 0;
