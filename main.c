@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:50 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 12:08:41 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/01 12:26:34 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,12 @@ int	main(int argc, char **argv)
 	if (check_args(argc, argv))
 		return (0);
 	atributte_args(argc, argv, &philo);
+	int i;
+	i = 0;
+	while (philo.table[i] != 0)
+	{
+		printf("%d\n", philo.table[i]);
+		i++;
+	}
 	
 }
