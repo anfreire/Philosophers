@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 17:51:23 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/03 09:53:39 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void	create_philos(t_data *data)
 	while (i <= data->nmbr_philos)
 	{
 		data->nmbr_thread = i;
+		if (i == 1)
+		{
+			if (gettimeofday(&data->t_start, NULL) != 0)
+				return ;
+		}
 		if (pthread_create(&data->philo.philos[i], NULL, &routine, data) != 0)
 			return ;
 		usleep(1000);
@@ -57,7 +62,7 @@ void	create_philos(t_data *data)
 
 void	join_philos(t_data *data)
 {
-		int	i;
+	int	i;
 	
 	i = 0;
 	while (i < data->nmbr_philos)
@@ -66,4 +71,17 @@ void	join_philos(t_data *data)
 			return ;
 		i++;
 	}
+}
+
+long long	get_miliseconds(t_data *data)
+{
+	long long		sec;
+	long long		usec;
+	struct timeval	t_now;
+	
+	if (gettimeofday(&t_now, NULL) != 0)
+				exit (1);
+	sec = t_now.tv_sec - data->t_start.tv_sec;
+	usec = t_now.tv_usec - data->t_start.tv_usec;
+	return ((usec / 1000) + (sec * 1000));
 }
