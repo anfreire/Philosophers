@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:10:26 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 11:44:13 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:55:23 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,16 @@ int	check_args(int argc, char **argv)
 			return (1);
 	}
 	return (0);
+}
+
+void	atributte_args(int argc, char **argv, t_data *data)
+{
+	data->nmbr_philos = ft_atoi(argv[1]);
+	data->t_die = ft_atoi(argv[2]);
+	data->t_eat = ft_atoi(argv[3]);
+	data->t_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		data->nmbr_philo_eat = ft_atoi(argv[5]);
+	else
+		data->nmbr_philo_eat = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:10:05 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/01 17:51:49 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/03 11:16:07 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@ int	ft_atoi(char *str)
 		result += str[i++] - '0';
 	}
 	return (result);
+}
+
+long long	get_miliseconds(t_data *data)
+{
+	long long		sec;
+	long long		usec;
+	struct timeval	t_now;
+	
+	if (gettimeofday(&t_now, NULL) != 0)
+				exit (1);
+	sec = t_now.tv_sec - data->t_start.tv_sec;
+	usec = t_now.tv_usec - data->t_start.tv_usec;
+	return ((usec / 1000) + (sec * 1000));
 }
