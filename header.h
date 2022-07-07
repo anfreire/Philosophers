@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/07 00:54:24 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/07 01:14:32 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ struct s_data
 	long			t_sleep;
 	int				nmbr_philo_eat;
 	int				philos_alive;
+	int				philo_died;
 	t_philo			*philos;
 };
 
@@ -54,7 +55,7 @@ int		can_philo_eat(t_philo *philo, t_data *data);
 
 //routine
 void	*routine(void *args);
-void	philo_died(t_philo *philo, t_data *data);
+void	philo_died(t_data *data);
 
 //errors
 int			check_if_digit(char *str);
@@ -66,7 +67,7 @@ long long	get_miliseconds(t_data *data);
 //process
 void	create_philos(t_data *data);
 void	destroy_philo(t_data *data);
-
+void	free_all(t_data *data);
 
 //utils
 int		ft_isdigit(char *str);

@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/07 00:59:11 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/07 01:33:08 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ void*	routine(void *args)
 	philos = (t_philo *)args;
 	while (philos->is_full == 0)
 	{
+		if (philos->data->philo_died == 1 || philos->data->philos_alive == 0)
+			return (NULL);
 		if (clock >= philos->data->t_die)
 			philos->data->philos_alive = 0;
+		if (philos->data->philos_alive == 0)
+		{
+			printf("ms:%lld		Philo %d has died\n", get_miliseconds(philos->data), philos->philo_nmbr);
+			philos->data->philo_died = 1;
+			return (NULL);
+		}
 		if (can_philo_eat(philos, philos->data))
 		{	
 			philo_eats(philos, philos->data);
@@ -47,16 +55,15 @@ void*	clock_philo(void *args)
 		if (philos->is_full == 1)
 			break ;
 		if (clock >= philos->data->t_die)
-			philo_died(philos, philos->data);
+			philo_died(philos->data);
 		usleep(1000);
 		clock++;
 	}
 	return (NULL);
 }
 
-void	philo_died(t_philo *philo, t_data *data)
+void	philo_died(t_data *data)
 {
-	printf("ms:%lld		Philo %d has died\n", get_miliseconds(data), philo->philo_nmbr);
 	data->philos_alive = 0;
 	destroy_philo(data);
 }

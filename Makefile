@@ -6,7 +6,7 @@
 #    By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/03 08:30:11 by anfreire          #+#    #+#              #
-#    Updated: 2022/07/03 08:41:16 by anfreire         ###   ########.fr        #
+#    Updated: 2022/07/07 01:22:19 by anfreire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = $(wildcard *.c)
             
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -lpthread
+CFLAGS = -Wall -Wextra -Werror -lpthread -fsanitize=0 -fsanitize=thread
 
 OBJS = $(SRCS:.c=.o)
 

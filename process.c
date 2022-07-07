@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/06 23:37:05 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/07 01:15:50 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,19 @@ void	destroy_philo(t_data *data)
 	{
 		pthread_join(data->philos[i].philo, NULL);
 		pthread_mutex_destroy(&data->philos[i].forks);
+		i++;
+	}
+}
+
+void	free_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nmbr_philos)
+	{
+		free(&data->philos[i].philo);
+		free(&data->philos[i].forks);
 		i++;
 	}
 }

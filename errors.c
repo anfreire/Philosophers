@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:10:26 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/06 22:57:05 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/07 01:08:06 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	atributte_args(int argc, char **argv, t_data *data)
 	data->t_eat = ft_atoi(argv[3]);
 	data->t_sleep = ft_atoi(argv[4]);
 	data->philos_alive = 1;
+	data->philo_died = 0;
 	if (argc == 6)
 		data->nmbr_philo_eat = ft_atoi(argv[5]);
 	else
