@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:10:05 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 18:09:26 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:49:10 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ long long	get_miliseconds(t_data *data)
 	long long		sec;
 	long long		usec;
 	struct timeval	t_now;
-	
-	if (gettimeofday(&t_now, NULL) != 0)
-				exit (1);
+
+	gettimeofday(&t_now, NULL);
 	sec = t_now.tv_sec - data->t_start.tv_sec;
 	usec = t_now.tv_usec - data->t_start.tv_usec;
 	return ((usec / 1000) + (sec * 1000));

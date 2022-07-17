@@ -6,30 +6,30 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 17:37:17 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:52:03 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
-#define HEADER_H
+# define HEADER_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <time.h>
-#include <string.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <time.h>
+# include <string.h>
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
-typedef	struct s_philo
+typedef struct s_philo
 {
 	int				philo_nmbr;
 	int				philos_eated;
 	pthread_t		philo;
 	pthread_mutex_t	forks;
-	struct	timeval	t_full;
+	struct timeval	t_full;
 	t_data			*data;
 
 }				t_philo;
@@ -38,7 +38,7 @@ struct s_data
 {
 	int				nmbr_philos;
 	int				*forks;
-	struct	timeval	t_start;
+	struct timeval	t_start;
 	long			t_eat;
 	long			t_die;
 	long			t_sleep;
@@ -65,7 +65,6 @@ int			check_if_digit(char *str);
 int			check_args(int argc, char **argv);
 void		atributte_args(int argc, char **argv, t_data *data);
 long long	get_miliseconds(t_data *data);
-
 
 //process
 void		create_philos(t_data *data);

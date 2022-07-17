@@ -6,12 +6,11 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:50 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 17:32:08 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:49:26 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
 
 int	main(int argc, char **argv)
 {

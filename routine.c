@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 18:27:50 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:46:22 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ void	check_if_all_philos_eaten(t_data *data)
 void	check_if_philo_is_dead(t_data *data, t_philo *philo)
 {
 	if (data->philo_died == 1)
-			return ;
+		return ;
 	if (get_miliseconds_hunger(philo) >= (long long)data->t_die)
 	{
 		if (data->philo_died == 1)
 			return ;
 		data->philo_died = 1;
-		printf("ms:%lld		Philo %d has died*******\n", get_miliseconds(data), philo->philo_nmbr);
+		printf("ms:%lld		Philo %d has died*******\n", \
+		get_miliseconds(data), philo->philo_nmbr);
 		return ;
 	}
 }
@@ -65,16 +66,16 @@ long long	get_miliseconds_hunger(t_philo *philo)
 	long long		sec;
 	long long		usec;
 	struct timeval	t_now;
-	
+
 	gettimeofday(&t_now, NULL);
 	sec = t_now.tv_sec - philo->t_full.tv_sec;
 	usec = t_now.tv_usec - philo->t_full.tv_usec;
 	return ((usec / 1000) + (sec * 1000));
 }
 
-void*	routine(void *args)
+void	*routine(void *args)
 {
-	t_philo *philos;
+	t_philo	*philos;
 	t_data	*data;
 
 	philos = (t_philo *)args;

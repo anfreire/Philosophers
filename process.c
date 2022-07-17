@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/12 12:32:13 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:44:09 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	create_philos(t_data *data)
 		data->philos[i].philos_eated = 0;
 		data->philos[i].data = data;
 		data->philos[i].philo_nmbr = i + 1;
-		pthread_create(&data->philos[i].philo, NULL, &routine, &data->philos[i]);
+		pthread_create(&data->philos[i].philo, NULL, &routine, \
+		&data->philos[i]);
 		pthread_mutex_init(&data->philos[i].forks, NULL);
 		i++;
 	}
