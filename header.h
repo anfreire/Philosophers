@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/07 01:14:32 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 17:37:17 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ typedef struct s_data t_data;
 typedef	struct s_philo
 {
 	int				philo_nmbr;
-	int				is_full;
+	int				philos_eated;
 	pthread_t		philo;
 	pthread_mutex_t	forks;
+	struct	timeval	t_full;
 	t_data			*data;
 
 }				t_philo;
@@ -42,20 +43,22 @@ struct s_data
 	long			t_die;
 	long			t_sleep;
 	int				nmbr_philo_eat;
-	int				philos_alive;
 	int				philo_died;
 	t_philo			*philos;
 };
 
 //actions
-void	philo_eats(t_philo *philo, t_data *data);
-void	philo_sleeps(t_philo *philo, t_data *data);
-void	philo_thinks(t_philo *philo, t_data *data);
-int		can_philo_eat(t_philo *philo, t_data *data);
+void		philo_eats(t_philo *philo, t_data *data);
+void		philo_sleeps(t_philo *philo, t_data *data);
+void		philo_thinks(t_philo *philo, t_data *data);
+int			can_philo_eat(t_philo *philo, t_data *data);
 
 //routine
-void	*routine(void *args);
-void	philo_died(t_data *data);
+void		*routine(void *args);
+void		check_if_all_philos_eaten(t_data *data);
+void		philo_routine(t_data *data, t_philo *philo);
+void		check_if_philo_is_dead(t_data *data, t_philo *philo);
+long long	get_miliseconds_hunger(t_philo *philo);
 
 //errors
 int			check_if_digit(char *str);
@@ -65,12 +68,12 @@ long long	get_miliseconds(t_data *data);
 
 
 //process
-void	create_philos(t_data *data);
-void	destroy_philo(t_data *data);
-void	free_all(t_data *data);
+void		create_philos(t_data *data);
+void		destroy_philo(t_data *data);
 
 //utils
-int		ft_isdigit(char *str);
-int		ft_atoi(char *str);
+int			ft_isdigit(char *str);
+int			ft_atoi(char *str);
+int			check_if_can_proceed(t_philo *philo, t_data *data);
 
 #endif

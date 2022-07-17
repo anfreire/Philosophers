@@ -6,64 +6,86 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/07 01:33:08 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/17 18:27:50 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
+void	check_if_all_philos_eaten(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->nmbr_philo_eat == 0)
+		return ;
+	if (data->philo_died == 1)
+		return ;
+	while (i < data->nmbr_philos)
+	{
+		if (data->philos[i].philos_eated != data->nmbr_philo_eat)
+			return ;
+		i++;
+	}
+	data->philo_died = 1;
+}
+
+void	check_if_philo_is_dead(t_data *data, t_philo *philo)
+{
+	if (data->philo_died == 1)
+			return ;
+	if (get_miliseconds_hunger(philo) >= (long long)data->t_die)
+	{
+		if (data->philo_died == 1)
+			return ;
+		data->philo_died = 1;
+		printf("ms:%lld		Philo %d has died*******\n", get_miliseconds(data), philo->philo_nmbr);
+		return ;
+	}
+}
+
+void	philo_routine(t_data *data, t_philo *philo)
+{
+	if (check_if_can_proceed(philo, data) == 0)
+		philo_eats(philo, data);
+	else
+		return ;
+	if (check_if_can_proceed(philo, data) == 0)
+		philo_sleeps(philo, data);
+	else
+		return ;
+	if (check_if_can_proceed(philo, data) == 0)
+		philo_thinks(philo, data);
+	else
+		return ;
+}
+
+long long	get_miliseconds_hunger(t_philo *philo)
+{
+	long long		sec;
+	long long		usec;
+	struct timeval	t_now;
+	
+	gettimeofday(&t_now, NULL);
+	sec = t_now.tv_sec - philo->t_full.tv_sec;
+	usec = t_now.tv_usec - philo->t_full.tv_usec;
+	return ((usec / 1000) + (sec * 1000));
+}
+
 void*	routine(void *args)
 {
 	t_philo *philos;
-	int		clock;
+	t_data	*data;
 
-	clock = 0;
 	philos = (t_philo *)args;
-	while (philos->is_full == 0)
+	data = (t_data *)philos->data;
+	gettimeofday(&philos->t_full, NULL);
+	while (check_if_can_proceed(philos, data) == 0)
 	{
-		if (philos->data->philo_died == 1 || philos->data->philos_alive == 0)
+		if (can_philo_eat(philos, data))
+			philo_routine(data, philos);
+		if (check_if_can_proceed(philos, data))
 			return (NULL);
-		if (clock >= philos->data->t_die)
-			philos->data->philos_alive = 0;
-		if (philos->data->philos_alive == 0)
-		{
-			printf("ms:%lld		Philo %d has died\n", get_miliseconds(philos->data), philos->philo_nmbr);
-			philos->data->philo_died = 1;
-			return (NULL);
-		}
-		if (can_philo_eat(philos, philos->data))
-		{	
-			philo_eats(philos, philos->data);
-			philo_sleeps(philos, philos->data);
-			philo_thinks(philos, philos->data);
-		}
-		usleep(1000);
-		clock++;
 	}
 	return (NULL);
-}
-
-void*	clock_philo(void *args)
-{
-	t_philo *philos;
-	int 	clock;
-	
-	clock = 0;
-	philos = (t_philo *)args;
-	while (philos->data->philos_alive == 1)
-	{
-		if (philos->is_full == 1)
-			break ;
-		if (clock >= philos->data->t_die)
-			philo_died(philos->data);
-		usleep(1000);
-		clock++;
-	}
-	return (NULL);
-}
-
-void	philo_died(t_data *data)
-{
-	data->philos_alive = 0;
-	destroy_philo(data);
 }
