@@ -41,3 +41,67 @@ fclean		:	clean
 re			:	fclean all
 
 .PHONY		:	all clean fclean re bonus
+
+NAME = philo
+
+SRCS = $(wildcard *.c)
+            
+CC = gcc
+
+OBJS = $(SRCS:.c=.o)
+
+FLAGS		= -Wall -Wextra -Werror -fsanitize=thread
+
+all			:	$(NAME)
+
+$(NAME)		:	$(OBJS)
+		@gcc -lpthread -fsanitize=thread -o $(NAME) $(OBJS)
+		@echo	"$$ ./philo && Object Files Generated"
+		@echo	""
+%.o			:	%.c
+		@gcc $(FLAGS) -c $^ -I./ -o $@
+
+clean		:
+		@rm -f $(OBJS)NAME = philo
+
+SRCS = $(wildcard *.c)
+            
+CC = gcc
+
+OBJS = $(SRCS:.c=.o)
+
+FLAGS		= -Wall -Wextra -Werror -fsanitize=thread
+
+all			:	$(NAME)
+
+$(NAME)		:	$(OBJS)
+		@gcc -lpthread -fsanitize=thread -o $(NAME) $(OBJS)
+		@echo	"$$ ./philo && Object Files Generated"
+		@echo	""
+%.o			:	%.c
+		@gcc $(FLAGS) -c $^ -I./ -o $@
+
+clean		:
+		@rm -f $(OBJS)
+		@echo	"$$ Object Files Deleted"
+		@echo	""
+
+fclean		:	clean
+		@rm -f $(NAME)
+		@echo	"$$ ./philo Deleted"
+		@echo	""
+
+re			:	fclean all
+
+.PHONY		:	all clean fclean re bonus
+		@echo	"$$ Object Files Deleted"
+		@echo	""
+
+fclean		:	clean
+		@rm -f $(NAME)
+		@echo	"$$ ./philo Deleted"
+		@echo	""
+
+re			:	fclean all
+
+.PHONY		:	all clean fclean re bonus
