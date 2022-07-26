@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 18:52:03 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:55:39 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ struct s_data
 	t_philo			*philos;
 };
 
-//actions
 void		philo_eats(t_philo *philo, t_data *data);
 void		philo_sleeps(t_philo *philo, t_data *data);
 void		philo_thinks(t_philo *philo, t_data *data);

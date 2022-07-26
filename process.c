@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:19:48 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/17 18:44:09 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:55:38 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	create_philos(t_data *data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	data->philos = malloc(sizeof(t_philo) * data->nmbr_philos);
 	data->forks = malloc(sizeof(int) * data->nmbr_philos);
-	while (i < data->nmbr_philos)
+	while (++i < data->nmbr_philos)
+		pthread_mutex_init(&data->philos[i].forks, NULL);
+	i = -1;
+	while (++i < data->nmbr_philos)
 	{
 		if (i == 0)
 			gettimeofday(&data->t_start, NULL);
@@ -29,8 +32,6 @@ void	create_philos(t_data *data)
 		data->philos[i].philo_nmbr = i + 1;
 		pthread_create(&data->philos[i].philo, NULL, &routine, \
 		&data->philos[i]);
-		pthread_mutex_init(&data->philos[i].forks, NULL);
-		i++;
 	}
 }
 
