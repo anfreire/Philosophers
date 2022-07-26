@@ -38,11 +38,16 @@ void	destroy_philo(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->nmbr_philos)
-	{
+	i = -1;
+	while (++i < data->nmbr_philos)
 		pthread_join(data->philos[i].philo, NULL);
-		pthread_mutex_destroy(&data->philos[i].forks);
-		i++;
+	i = -1;
+	while (++i < data->nmbr_philos)
+	{
+		if (data->forks[i] == 0)
+			pthread_mutex_lock(&data->philos[i].forks);
 	}
+	i = -1;
+	while (++i < data->nmbr_philos)
+		pthread_mutex_destroy(&data->philos[i].forks);
 }
