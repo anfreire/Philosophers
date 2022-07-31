@@ -41,6 +41,8 @@ void	atributte_args(int argc, char **argv, t_data *data)
 	data->t_eat = ft_atoi(argv[3]);
 	data->t_sleep = ft_atoi(argv[4]);
 	data->philo_died = 0;
+	data->philo_eated = 0;
+	data->f = 0;
 	if (argc == 6)
 		data->nmbr_philo_eat = ft_atoi(argv[5]);
 	else

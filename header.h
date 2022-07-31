@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 10:52:07 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/26 21:55:39 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/29 02:47:29 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,25 @@ struct s_data
 	int				nmbr_philos;
 	int				*forks;
 	struct timeval	t_start;
+	int				f;
 	long			t_eat;
 	long			t_die;
 	long			t_sleep;
 	int				nmbr_philo_eat;
 	int				philo_died;
+	int				philo_eated;
 	t_philo			*philos;
 };
 
-void		philo_eats(t_philo *philo, t_data *data);
+int			philo_eats(t_philo *philo, t_data *data);
 void		philo_sleeps(t_philo *philo, t_data *data);
-void		philo_thinks(t_philo *philo, t_data *data);
+int			routine_aux(t_philo *philo, t_data *data);
 int			can_philo_eat(t_philo *philo, t_data *data);
 
 //routine
 void		*routine(void *args);
 void		check_if_all_philos_eaten(t_data *data);
-void		philo_routine(t_data *data, t_philo *philo);
-void		check_if_philo_is_dead(t_data *data, t_philo *philo);
+void		check_if_philo_is_dead(t_data *data);
 long long	get_miliseconds_hunger(t_philo *philo);
 
 //errors
@@ -72,6 +73,6 @@ void		destroy_philo(t_data *data);
 //utils
 int			ft_isdigit(char *str);
 int			ft_atoi(char *str);
-int			check_if_can_proceed(t_philo *philo, t_data *data);
+void		check_if_can_proceed(t_data *data);
 
 #endif
