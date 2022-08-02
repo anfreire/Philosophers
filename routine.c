@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 12:27:59 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/29 02:59:39 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:55:37 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,46 @@ void	check_if_all_philos_eaten(t_data *data)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (data->nmbr_philo_eat == 0)
 		return ;
-	while (++i < data->nmbr_philos)
+	if (data->philo_died == 1)
+		return ;
+	while (i < data->nmbr_philos)
 	{
 		if (data->philos[i].philos_eated != data->nmbr_philo_eat)
 			return ;
+		i++;
 	}
 	data->philo_died = 1;
 }
 
-void	check_if_philo_is_dead(t_data *data)
+void	check_if_philo_is_dead(t_data *data, t_philo *philo)
 {
-	int	i;
-
-	i = -1;
-	while (++i < data->nmbr_philos)
+	if (data->philo_died == 1)
+		return ;
+	if (get_miliseconds_hunger(philo) >= (long long)data->t_die)
 	{
-		if (get_miliseconds_hunger(&data->philos[i]) >= (long long)data->t_die)
-		{
-			if (data->philo_died == 1)
-				return ;
-			data->philo_died = 1;
-			printf("ms:%lld		Philo %d has died*******\n", \
-			get_miliseconds(data), data->philos[i].philo_nmbr);
+		if (data->philo_died == 1)
 			return ;
-		}
+		data->philo_died = 1;
+		printf("ms:%lld		Philo %d has died\n", \
+		get_miliseconds(data), philo->philo_nmbr);
+		return ;
 	}
+}
+
+void	philo_routine(t_data *data, t_philo *philo)
+{
+	if (check_if_can_proceed(philo, data) == 0)
+		philo_eats(philo, data);
+	else
+		return ;
+	philo_sleeps(philo, data);
+	if (check_if_can_proceed(philo, data) == 0)
+		philo_thinks(philo, data);
+	else
+		return ;
 }
 
 long long	get_miliseconds_hunger(t_philo *philo)
@@ -65,12 +77,13 @@ void	*routine(void *args)
 
 	philos = (t_philo *)args;
 	data = (t_data *)philos->data;
-	gettimeofday(&philos->t_full, NULL);
-	while (1)
+	data->start++;
+	philos->t_full = data->t_start;
+	while (check_if_can_proceed(philos, data) == 0)
 	{
-		if (routine_aux(philos, data) == 1)
-			return (NULL);
-		if (data->t_die == 1)
+		if (can_philo_eat(philos, data))
+			philo_routine(data, philos);
+		if (check_if_can_proceed(philos, data))
 			return (NULL);
 	}
 	return (NULL);

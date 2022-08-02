@@ -6,7 +6,7 @@
 /*   By: anfreire <anfreire@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 11:10:05 by anfreire          #+#    #+#             */
-/*   Updated: 2022/07/29 02:55:21 by anfreire         ###   ########.fr       */
+/*   Updated: 2022/07/26 21:55:43 by anfreire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ long long	get_miliseconds(t_data *data)
 	return ((usec / 1000) + (sec * 1000));
 }
 
-void	check_if_can_proceed(t_data *data)
+int	check_if_can_proceed(t_philo *philo, t_data *data)
 {
-	check_if_philo_is_dead(data);
-	if (data->philo_died)
-		return ;
+	check_if_philo_is_dead(data, philo);
+	if (data->philo_died == 1)
+		return (1);
 	check_if_all_philos_eaten(data);
-	if (data->philo_died)
-		return ;
+	if (data->philo_died == 1)
+		return (1);
+	else
+		return (0);
 }
